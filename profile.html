@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile page</title>
+    <link type="text/css" rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <header>
+    </header>
+    <main>
+        <section>
+            <input type="text" id="searchInput" placeholder="Search">
+            <button id="searchButton">Search</button>
+        </section>
+        <div id="postFeed">
+            <!-- User's posts will be displayed here -->
+        </div>
+        <section>
+            <form id="createPostForm">
+                <!-- Form input fields, e.g., title and content -->
+                <input type="text" id="postTitle" placeholder="Post Title">
+                <textarea id="postContent" placeholder="Post Content"></textarea>
+                <button type="submit">Create Post</button>
+            </form>
+            
+        </section>
+    </main>
+    <footer></footer>
+    <!-- Include both main.js and profile.js -->
+
+    <script type="module" src="/js/profile.js"></script>
+</body>
+</html>
