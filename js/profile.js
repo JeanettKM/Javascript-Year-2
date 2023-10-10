@@ -1,4 +1,6 @@
-import { authToken } from './main.js';
+// Import the authToken as a default import
+import authToken from './main.js';
+
 
 // Define the displayUserPosts function
 function displayUserPosts(posts) {

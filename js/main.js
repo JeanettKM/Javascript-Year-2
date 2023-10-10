@@ -40,7 +40,35 @@ function displayPosts(posts) {
     });
 }
 
-// Function to filter posts based on the user's selection
+// Function to filter posts based on the selected filter
+function filterPosts(selectedFilter, posts) {
+    let filteredPosts = [];
+
+    if (selectedFilter === 'all') {
+        // If the selected filter is 'all', display all posts
+        filteredPosts = posts;
+    } else {
+        // Filter posts based on the selected filter
+        filteredPosts = posts.filter((post) => {
+            // Access the comments and reactions within _count
+            const commentsCount = post._count.comments;
+            const reactionsCount = post._count.reactions;
+
+            if (selectedFilter === 'comments') {
+                return commentsCount > 0;
+            } else if (selectedFilter === 'reactions') {
+                return reactionsCount > 0;
+            }
+
+            return false; // Filter out posts that don't match the selected filter
+        });
+    }
+
+    displayPosts(filteredPosts);
+}
+
+
+// Event listener for the select dropdown
 const filterSelect = document.getElementById('filterSelect');
 if (filterSelect) {
     filterSelect.addEventListener('change', () => {
@@ -149,5 +177,5 @@ createPostForm.addEventListener('submit', function (e) {
     createPost(postTitle, postContent);
 });
 
-// Export authToken
-export const authToken = localStorage.getItem('accessToken');
+// Export authToken as a default export
+export default localStorage.getItem('accessToken');

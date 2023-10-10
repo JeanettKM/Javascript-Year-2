@@ -77,7 +77,7 @@ function handleFormSubmit(event) {
     const editedPost = {
         title: editTitleInput.value,
         body: editBodyInput.value,
-        tags: editTagsInput.value.split(',').map(tag => tag.trim()), // Convert comma-separated tags to an array
+        tags: editTagsInput.value.split(',').map(tag => tag.trim()),
     };
 
     // Send a PUT request to update the post
@@ -94,13 +94,17 @@ function handleFormSubmit(event) {
             // Post updated successfully, go back to post details
             window.location.href = `post-detail.html?id=${postId}`;
         } else {
-            throw new Error('Failed to update post');
+            // Log the error response content for debugging
+            response.json().then(data => {
+                console.error('Error updating post:', data);
+            });
         }
     })
     .catch((error) => {
         console.error('Error updating post:', error);
     });
 }
+
 
 // Function to delete the post
 function deletePost(postId) {
