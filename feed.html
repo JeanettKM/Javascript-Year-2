@@ -5,15 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Feed</title>
     <link type="text/css" rel="stylesheet" href="/css/styles.css">
+    <link rel="icon" type="image/x-icon" href="data:image/x-icon;,">
 </head>
 <body>
     <header>
+        <nav>
+            <ul><a href="/index.html">Log out</a></ul>
+        </nav>
     </header>
     <main>
-        <div>
-            <a href="/index.html">Log out</a>
-        </div>
-        <section>
+        <h1>All recent posts</h1>
+        <section class="filter-section">
             <label for="filterSelect">Filter by:</label>
             <select id="filterSelect">
                 <option value="all">All Posts</option>
@@ -21,24 +23,36 @@
                 <option value="comments">By Comments</option>
             </select>
         </section>
-        <input type="text" id="searchInput" placeholder="Search">
-        <button id="searchButton">Search</button>
-    </section>
-    <section>
-        <h1>All recent posts</h1>
-    </section>
-    <div id="postFeed"></div>
-    <section>
-        <form id="createPostForm">
-            <input type="text" id="postTitle" placeholder="Title" required>
-            <textarea id="postContent" placeholder="Content" required></textarea>
-            <button type="submit">Create Post</button>
-        </form>
-    </section>
-    <section>
-        <!-- Link to the profile.html page -->
-        <a href="profile.html" id="profileButton">View your posts</a>
-    </section>
+        <section class="search-section">
+            <input type="text" id="searchInput" placeholder="Search">
+            <button id="searchButton">Search</button>
+        </section>
+        <div id="postFeed" class="post-feed">
+            <!-- Example post card -->
+            <div class="post-card">
+                <h2>Post Title</h2>
+                <p>Post content goes here...</p>
+                <div class="post-meta">
+                    <p>Author: John Doe</p>
+                    <p>Posted on: 2023-10-11</p>
+                    <p>Reactions: 10</p>
+                    <p>Comments: 5</p>
+                </div>
+            </div>
+            <!-- Repeat the post card structure for each post -->
+        </div>
+        <section class="create-post-form">
+            <form id="createPostForm">
+                <label for="postTitle">Title:</label>
+                <input type="text" id="postTitle" placeholder="Post Title" required>
+                <label for="postContent">Content:</label>
+                <textarea id="postContent" placeholder="Post Content" required></textarea>
+                <button type="submit">Create Post</button>
+            </form>
+        </section>
+        <section class="profileButton">
+            <a href="profile.html" id="profileButton">View your posts</a>
+        </section>
     </main>
     <footer></footer>
     <script type="module" src="/js/main.js"></script>

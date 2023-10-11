@@ -1,4 +1,209 @@
-.error-message {
-    color: red;
-    font-weight: bold;
+/* Reset some default browser styles */
+body, h1, h2, p, ul, li {
+    margin: 0;
+    padding: 0;
+}
+
+/* Set a background color and font for the entire page */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* Create a container for your content */
+.container {
+    width: 90%;
+    max-width: 1200px;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    text-align: center;
+    margin-top: 20px;
+}
+
+/* Add some space between elements and text */
+h1, h2 {
+    margin: 20px 0;
+}
+
+p {
+    margin: 10px 0;
+}
+
+ul {
+    list-style: disc;
+    padding-left: 20px;
+    margin: 10px 0;
+}
+
+/* Create a balanced, neat look for links */
+a {
+    color: #007BFF;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+a:hover {
+    color: #0056b3;
+}
+
+/* Add a little padding to images */
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 10px auto;
+}
+
+/* Responsive layout adjustments */
+@media (max-width: 768px) {
+    .container {
+        width: 95%;
+    }
+}
+
+/* Specific layout adjustments for individual pages */
+
+/* Login page (index.html) */
+.login-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.login-form p {
+    margin-top: 10px;
+}
+
+/* Feed page (feed.html) */
+.filter-section, .search-section {
+    display: flex;
+    align-items: center;
+}
+
+.filter-section label, .search-section label {
+    margin-right: 10px;
+}
+
+#filterSelect {
+    margin-right: 10px;
+}
+
+.create-post-form form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 5px 0;
+}
+
+.create-post-form label {
+    width: 100%;
+    text-align: left;
+}
+
+/* Feed page (feed.html) */
+.post-feed {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.create-post-form {
+    margin-top: 20px;
+}
+
+/* Buttons */
+.profileButton, .feedButton {
+    margin: 20px;
+    text-align: center;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #007BFF;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+.center-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+/* Input and text area styles */
+#searchInput {
+    padding: 5px;
+    margin: 10px;
+    border-radius: 5px;
+}
+
+label {
+    text-align: center;
+}
+
+input, textarea {
+    margin-right: 20px;
+    padding: 5px;
+    margin: 10px;
+    border-radius: 3px;
+}
+
+#postTitle {
+    width: 100%;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+#postContent {
+    padding-top: 40px;
+    padding-bottom: 40px;
+    padding-left: 20px;
+    padding-right: 20px;
+    width: 100%;
+}
+
+#postFeed {
+    margin: 30px;
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+
+#createPostForm {
+    text-align: center;
+}
+
+/* Define the style for the post card */
+.post-card {
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 10px;
+    width: 80%; /* Adjust the width as needed */
+    text-align: center;
+}
+
+/* Add styles for post meta */
+.post-card .post-meta {
+    color: #777;
+    margin-top: 10px;
 }

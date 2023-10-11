@@ -5,40 +5,45 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profile page</title>
     <link type="text/css" rel="stylesheet" href="/css/styles.css">
+    <link rel="icon" type="image/x-icon" href="data:image/x-icon;,">
 </head>
 <body>
     <header>
+        <nav>
+            <ul><a href="/index.html">Log out</a></ul>
+        </nav>
     </header>
     <main>
-        <div>
-            <a href="/index.html">Log out</a>
-        </div>
-        <section>
+        <h1>Post Details</h1>
+        <section class="filter-section">
+            <label for="filterSelect">Filter by:</label>
+            <select id="filterSelect">
+                <option value="all">All Posts</option>
+                <option value="reactions">By Reactions</option>
+                <option value="comments">By Comments</option>
+            </select>
+        </section>
+        <section class="search-section">
             <input type="text" id="searchInput" placeholder="Search">
             <button id="searchButton">Search</button>
         </section>
-        <div>
-            <h1>Your posts!</h1>
+        <div class="profile-content">
+            <div id="postFeed">
+                <!-- User's posts will be displayed here -->
+            </div>
+            <section id="createPostForm">
+                <form id="createPostForm">
+                    <input type="text" id="postTitle" placeholder="Post Title">
+                    <textarea id="postContent" placeholder="Post Content"></textarea>
+                    <button id="createPostBtn" type="submit">Create Post</button>
+                </form>
+            </section>
         </div>
-        <div id="postFeed">
-            <!-- User's posts will be displayed here -->
-        </div>
-        <section>
-            <form id="createPostForm">
-                <!-- Form input fields, e.g., title and content -->
-                <input type="text" id="postTitle" placeholder="Post Title">
-                <textarea id="postContent" placeholder="Post Content"></textarea>
-                <button type="submit">Create Post</button>
-            </form>
-            
-        </section>
-        <section>
+        <section class="feedButton">
             <a href="/feed.html">Back to feed</a>
         </section>
     </main>
     <footer></footer>
-    <!-- Include both main.js and profile.js -->
-
     <script type="module" src="/js/profile.js"></script>
 </body>
 </html>
