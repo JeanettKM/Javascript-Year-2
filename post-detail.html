@@ -3,40 +3,61 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Post details</title>
-    <link type="text/css" rel="stylesheet" href="/css/styles.css">
+    <title>Post Details</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.min.css">
     <link rel="icon" type="image/x-icon" href="data:image/x-icon;,">
 </head>
 <body>
     <header>
-        <h1>Post Details</h1>
+        <section class="hero is-primary">
+            <div class="hero-body">
+                <div class="container">
+                    <h1 class="title">Post Details</h1>
+                </div>
+            </div>
+        </section>
     </header>
     <main>
-        <div>
+        <div class="container">
             <a href="/index.html">Log out</a>
         </div>
-        <section id="postDetails">
+        <section class="container" id="postDetails">
             <!-- Post details content will be displayed here -->
         </section>
 
-        <section id="editPostForm" style="display: none;">
-            <h2>Edit Post</h2>
+        <section class="container" id="editPostForm" style="display: none;">
+            <h2 class="title is-4">Edit Post</h2>
             <form id="editForm">
-                <label for="editTitle">Title:</label>
-                <input type="text" id="editTitle" name="editTitle" required><br><br>
+                <div class="field">
+                    <label for="editTitle" class="label">Title:</label>
+                    <div class="control">
+                        <input type="text" id="editTitle" name="editTitle" class="input" required>
+                    </div>
+                </div>
 
-                <label for="editBody">Body:</label>
-                <textarea id="editBody" name="editBody" required></textarea><br><br>
+                <div class="field">
+                    <label for="editBody" class="label">Body:</label>
+                    <div class="control">
+                        <textarea id="editBody" name="editBody" class="textarea" required></textarea>
+                    </div>
+                </div>
 
-                <label for="editTags">Tags (comma-separated):</label>
-                <input type="text" id="editTags" name="editTags"><br><br>
+                <div class="field">
+                    <label for="editTags" class="label">Tags (comma-separated):</label>
+                    <div class="control">
+                        <input type="text" id="editTags" name="editTags" class="input">
+                    </div>
+                </div>
 
-                <button type="submit">Save Changes</button>
+                <div class="field">
+                    <div class="control">
+                        <button type="submit" class="button is-primary">Save Changes</button>
+                    </div>
+                </div>
             </form>
         </section>
         <!-- Add a "Delete Post" button -->
-<button id="deleteButton">Delete Post</button>
-
+        <button id="deleteButton" class="button is-danger">Delete Post</button>
     </main>
     <footer></footer>
     <script src="/js/post-detail.js"></script>

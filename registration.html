@@ -4,26 +4,50 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register</title>
-    <link type="text/css" rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.min.css">
     <link rel="icon" type="image/x-icon" href="data:image/x-icon;,">
 </head>
 <body>
     <header>
     </header>
     <main>
-        <section>
-            <form id="registrationForm">
-    <input type="text" id="username" placeholder="Username">
-    <input type="email" id="email" placeholder="Email">
-    <input type="password" id="password" placeholder="Password">
-    <button type="submit">Register</button>
-</form>
+        <section class="section">
+            <div class="container">
+                <form id="registrationForm">
+                    <div class="field">
+                        <label class="label" for="username">Username:</label>
+                        <div class="control">
+                            <input type="text" id="username" class="input" placeholder="Username">
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label class="label" for="email">Email:</label>
+                        <div class="control">
+                            <input type="email" id="email" class="input" placeholder="Email">
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label class="label" for="password">Password:</label>
+                        <div class="control">
+                            <input type="password" id="password" class="input" placeholder="Password">
+                        </div>
+                    </div>
+                    <div class="field">
+                        <div class="control">
+                            <button type="submit" class="button is-primary">Register</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
         </section>
-        <section>
-            <p>Already have an account? <a href="/index.html">Log in</a></p>
+        <section class="section">
+            <div class="container">
+                <p>Already have an account? <a href="/index.html">Log in</a></p>
+            </div>
         </section>
     </main>
-    <footer></footer>
+    <footer>
+    </footer>
     <script src="js/registration.js"></script>
 </body>
 </html>
