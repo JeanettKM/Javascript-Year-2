@@ -17,7 +17,7 @@ const editTagsInput = document.getElementById('editTags');
 const deleteButton = document.getElementById('deleteButton');
 
 // Function to fetch post details and display them
-function fetchPostDetails() {
+export function fetchPostDetails() {
     fetch(`https://api.noroff.dev/api/v1/social/posts/${postId}`, {
         headers: {
             'Authorization': `Bearer ${authToken}`
@@ -59,7 +59,7 @@ function fetchPostDetails() {
 }
 
 // Function to display the edit form with the post data
-function displayEditForm(post) {
+export function displayEditForm(post) {
     editTitleInput.value = post.title;
     editBodyInput.value = post.body;
     editTagsInput.value = post.tags.join(', ');
@@ -70,7 +70,7 @@ function displayEditForm(post) {
 }
 
 // Function to handle the form submission
-function handleFormSubmit(event) {
+export function handleFormSubmit(event) {
     event.preventDefault();
 
     // Get the form data
@@ -107,7 +107,7 @@ function handleFormSubmit(event) {
 
 
 // Function to delete the post
-function deletePost(postId) {
+export function deletePost(postId) {
     // Send a DELETE request to delete the post
     fetch(`https://api.noroff.dev/api/v1/social/posts/${postId}`, {
         method: 'DELETE',

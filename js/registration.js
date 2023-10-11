@@ -1,5 +1,6 @@
+registration.js
 // Define the registerUser function
-function registerUser(username, email, password) {
+export function registerUser(username, email, password) {
     // Construct the request body with user registration data
     const requestBody = {
         "name": username,
@@ -8,7 +9,7 @@ function registerUser(username, email, password) {
     };
 
     // Send a POST request to the user registration API endpoint
-    fetch('https://api.noroff.dev/api/v1/social/auth/register', {
+    return fetch('https://api.noroff.dev/api/v1/social/auth/register', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

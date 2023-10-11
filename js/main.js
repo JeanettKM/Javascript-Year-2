@@ -1,5 +1,5 @@
 // Function to fetch all posts
-function fetchPosts() {
+export function fetchPosts() {
     // Retrieve the JWT token from localStorage
     const authToken = localStorage.getItem('accessToken');
 
@@ -18,7 +18,7 @@ function fetchPosts() {
 }
 
 // Define the displayPosts function
-function displayPosts(posts) {
+export function displayPosts(posts) {
     const postFeed = document.getElementById('postFeed');
 
     // Clear existing posts
@@ -40,8 +40,8 @@ function displayPosts(posts) {
     });
 }
 
-// Function to filter posts based on the selected filter
-function filterPosts(selectedFilter, posts) {
+// FILTER FUNCTION
+export function filterPosts(selectedFilter, posts) {
     let filteredPosts = [];
 
     if (selectedFilter === 'all') {
@@ -93,8 +93,8 @@ fetchPosts()
         console.error('Error fetching or filtering posts:', error);
     });
 
-// Function to search posts based on keywords or tags
-function searchPosts(query, posts) {
+// SEARCH POSTS FUNCTION
+export function searchPosts(query, posts) {
     // Filter posts based on the user's query
     const filteredPosts = posts.filter((post) => {
         // Check if the post title or tags contain the query (case-insensitive)
@@ -127,7 +127,7 @@ searchButton.addEventListener('click', () => {
 });
 
 // Function to create a new post
-function createPost(title, content) {
+export function createPost(title, content) {
     const authToken = localStorage.getItem('accessToken');
 
     // Construct the request body with post data

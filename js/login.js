@@ -1,5 +1,3 @@
-// login.js
-
 document.getElementById('loginForm').addEventListener('submit', function (e) {
     e.preventDefault();
     const email = document.getElementById('email').value;
@@ -9,13 +7,13 @@ document.getElementById('loginForm').addEventListener('submit', function (e) {
     loginUser(email, password);
 });
 
-function loginUser(email, password) {
+export function loginUser(email, password) {
     const requestBody = {
         email: email,
         password: password,
     };
 
-    fetch('https://api.noroff.dev/api/v1/social/auth/login', {
+    return fetch('https://api.noroff.dev/api/v1/social/auth/login', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

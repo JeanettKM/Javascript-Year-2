@@ -3,7 +3,7 @@ import authToken from './main.js';
 
 
 // Define the displayUserPosts function
-function displayUserPosts(posts) {
+export function displayUserPosts(posts) {
     const postFeed = document.getElementById('postFeed');
 
     // Clear existing posts
@@ -39,7 +39,7 @@ function displayUserPosts(posts) {
 // Rest of your code
 
 // Function to fetch all posts (from main.js)
-function fetchAllPosts() {
+export function fetchAllPosts() {
     return fetch('https://api.noroff.dev/api/v1/social/posts?_author=true', {
         headers: {
             'Authorization': `Bearer ${authToken}`
