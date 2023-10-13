@@ -5,15 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profile page</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.min.css">
-    <link rel="icon" type="image/x-icon" href="data:image/x-icon;,">
+    <link rel="shortcut icon" href="#" />  // to avoid favicon error
 </head>
 <body>
     <header>
-        <nav class="navbar" role="navigation" aria-label="main navigation">
-            <div class="navbar-brand">
-                <a class="navbar-item" href="/index.html">Log out</a>
-            </div>
-        </nav>
+        <nav class="breadcrumb is-centered" aria-label="breadcrumbs">
+            <ul>
+              <li><a href="index.html">Log in</a></li>
+              <li><a href="feed.html">Feed</a></li>
+              <li class="is-active"><a href="profile.html" aria-current="page">Profile</a></li>
+            </ul>
+          </nav>
     </header>
     <main>
         <section class="section">

@@ -1,8 +1,7 @@
-// Import the authToken as a default import
-import authToken from './main.js';
+// Import the authorization token
+import authToken from './feed.js';
 
-
-// Define the displayUserPosts function
+// Function to display posts
 export function displayUserPosts(posts) {
     const postFeed = document.getElementById('postFeed');
 
@@ -17,28 +16,34 @@ export function displayUserPosts(posts) {
         return;
     }
 
-    // Filter and display only the user's posts
+    // Filter and display only the logged-in user's posts
     const userPosts = posts.filter((post) => post.author.email === userEmail);
 
-    // Loop through the user's posts and create HTML elements for each post
+    // Create the html elements for the posts
     userPosts.forEach((post) => {
-        const postElement = document.createElement('div');
-        postElement.classList.add('post');
+        // Create a card structure for the post
+        const postCard = document.createElement('div');
+        postCard.classList.add('card', 'post-card');
+
+        postCard.innerHTML = `
+            <div class="card-content">
+                <h2 class="title">${post.title}</h2>
+                <p>${post.body}</p>
+                <p>Tags: ${post.tags.join(', ')}</p>
+                ${post.author ? `<p>Author: ${post.author.name}</p>` : ''}
+            </div>
+        `;
 
         // Create a link to view post details on post-details.html
         const postLink = document.createElement('a');
         postLink.href = `post-detail.html?id=${post.id}`;
-        postLink.textContent = post.title;
+        postLink.appendChild(postCard);
 
-        postElement.appendChild(postLink);
-
-        postFeed.appendChild(postElement);
+        postFeed.appendChild(postLink);
     });
 }
 
-// Rest of your code
-
-// Function to fetch all posts (from main.js)
+// Function to fetch all posts
 export function fetchAllPosts() {
     return fetch('https://api.noroff.dev/api/v1/social/posts?_author=true', {
         headers: {

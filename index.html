@@ -6,6 +6,7 @@
     <title>Log in</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.min.css">
     <link rel="icon" type="image/x-icon" href="data:image/x-icon;,">
+    <link rel="shortcut icon" href="#" />  // to avoid favicon error
 </head>
 <body>
     <header>
@@ -13,26 +14,27 @@
     <main>
         <section class="section">
             <div class="container">
-                <form id="loginForm">
-                    <div class="field">
-                        <label for="email" class="label">Email:</label>
-                        <div class="control">
-                            <input type="email" id="email" class="input" required>
-                        </div>
-                    </div>
-                    <div class="field">
-                        <label for="password" class="label">Password:</label>
-                        <div class="control">
-                            <input type="password" id="password" class="input" required>
-                        </div>
-                    </div>
-                    <div id="errorContainer" class="help is-danger"></div>
-                    <div class="field">
-                        <div class="control">
-                            <button type="submit" class="button is-primary">Login</button>
-                        </div>
-                    </div>
-                </form>
+                <!-- The form elements with IDs and classes for better structure -->
+<form id="loginForm">
+    <div class="field">
+      <label for="email" class="label">Email:</label>
+      <div class="control">
+        <input type="email" id="email" class="input" required>
+      </div>
+    </div>
+    <div class="field">
+      <label for="password" class="label">Password:</label>
+      <div class="control">
+        <input type="password" id="password" class="input" required>
+      </div>
+    </div>
+    <div id="errorContainer" class="help is-danger"></div>
+    <div class="field">
+      <div class="control">
+        <button type="submit" class="button is-primary">Login</button>
+      </div>
+    </div>
+  </form>  
                 <p>Don't have an account? <a href="/registration.html">Sign up</a></p>
             </div>
         </section>

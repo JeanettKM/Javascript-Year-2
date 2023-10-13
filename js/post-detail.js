@@ -1,8 +1,3 @@
-document.addEventListener('DOMContentLoaded', function() {
-    // Your JavaScript code here, including the code to create the "Delete Post" button.
-});
-
-
 // Get the post ID from the query parameter
 const urlParams = new URLSearchParams(window.location.search);
 const postId = urlParams.get('id');
@@ -31,27 +26,34 @@ export function fetchPostDetails() {
         }
     })
     .then((post) => {
-        // Display the post details on the page
-        postDetailsContainer.innerHTML = `
-            <h2>${post.title}</h2>
-            <p>${post.body}</p>
-            <p>Tags: ${post.tags.join(', ')}</p>
-            ${post.author ? `<p>Author: ${post.author.name}</p>` : ''}
-            <button id="editButton">Edit Post</button>
+        // Create a card structure for the post
+        const postCard = document.createElement('div');
+        postCard.classList.add('card', 'post-card');
+
+        postCard.innerHTML = `
+            <div class="card-image is-centered">
+                <figure class="has-text-centered">
+                    <img class="post-image" src="${post.media}" alt="Post Media">
+                </figure>
+            </div>
+            <div class="card-content">
+                <h2 class="title">${post.title}</h2>
+                <p>${post.body}</p>
+                <p>Tags: ${post.tags.join(', ')}</p>
+                ${post.author ? `<p>Author: ${post.author.name}</p>` : ''}
+                <button id="editButton" class="button is-primary mt-4">Edit Post</button>
+            </div>
         `;
 
         // Add an event listener to the "Edit Post" button
-        const editButton = document.getElementById('editButton');
+        const editButton = postCard.querySelector('#editButton');
         editButton.addEventListener('click', () => {
             // Display the edit form
             displayEditForm(post);
         });
 
-        // Add an event listener to the "Delete Post" button
-        deleteButton.addEventListener('click', () => {
-            // Call the function to delete the post
-            deletePost(postId);
-        });
+        // Add the post card to the postDetailsContainer
+        postDetailsContainer.appendChild(postCard);
     })
     .catch((error) => {
         console.error('Error fetching post details:', error);
@@ -105,7 +107,6 @@ export function handleFormSubmit(event) {
     });
 }
 
-
 // Function to delete the post
 export function deletePost(postId) {
     // Send a DELETE request to delete the post
@@ -128,6 +129,12 @@ export function deletePost(postId) {
         console.error('Error deleting post:', error);
     });
 }
+
+// Add an event listener to the "Delete Post" button
+deleteButton.addEventListener('click', () => {
+    // Call the deletePost function when the button is clicked
+    deletePost(postId);
+});
 
 // Fetch and display post details when the page loads
 fetchPostDetails();
