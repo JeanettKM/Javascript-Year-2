@@ -1,4 +1,4 @@
-// Form submission handling
+// Form submission
 document.addEventListener('DOMContentLoaded', () => {
     const loginForm = document.getElementById('loginForm');
   
@@ -13,13 +13,13 @@ document.addEventListener('DOMContentLoaded', () => {
         console.error('Login error', error);
   
         const errorContainer = document.getElementById('errorContainer');
-        errorContainer.textContent = 'Incorrect Email or password';
+        errorContainer.textContent = 'Incorrect Email or password please try again.';
       }
     });
   });
   
   
-  // Function to Log in user
+  // Log in user
   export async function loginUser(email, password) {
     const requestBody = { email, password };
   
@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
         throw new Error('Login failed');
       }
     } catch (error) {
-      throw error; // Rethrow the error to be caught in the calling function
+      throw error; 
     }
   }
   

@@ -9,12 +9,12 @@ const searchButton = document.getElementById('searchButton');
 const searchInput = document.getElementById('searchInput');
 const createPostForm = document.getElementById('createPostForm');
 
-// Function to display loading state
+// Loading state...
 function displayLoadingState() {
   postFeed.innerHTML = 'Loading...';
 }
 
-// Function to fetch posts from the API
+// Fetch posts from the API
 async function fetchPosts() {
   try {
     const authToken = localStorage.getItem('accessToken');
@@ -35,10 +35,10 @@ async function fetchPosts() {
   }
 }
 
-// Function to display posts as cards
+// Show posts as cards, styling by Bulma css framework
 function displayPostsAsCards(posts, append = false) {
   if (!append) {
-    postFeed.innerHTML = ''; // Clear previous content
+    postFeed.innerHTML = '';
   }
 
   if (posts.length === 0) {
@@ -82,22 +82,42 @@ function displayPostsAsCards(posts, append = false) {
     `;
 
       if (append) {
-        postFeed.appendChild(card); // Append new posts
+        postFeed.appendChild(card);
       } else {
-        postFeed.insertBefore(card, postFeed.firstChild); // Prepend new posts
+        postFeed.insertBefore(card, postFeed.firstChild);
       }
     });
   }
 }
 
-// Function to load and display the next 8 posts
+// Fetch posts by a specific user
+export async function fetchPostsByUser(authToken) {
+    try {
+      const response = await fetch('https://api.noroff.dev/api/v1/social/posts', {
+        headers: {
+          'Authorization': `Bearer ${authToken}`
+        }
+      });
+  
+      if (response.ok) {
+        const data = await response.json();
+        return data;
+      } else {
+        throw new Error('Failed to fetch user posts');
+      }
+    } catch (error) {
+      throw error;
+    }
+  }
+
+// Load and show the next 8 posts
 function loadMorePosts(button = null) {
   const startIndex = (currentPage - 1) * postsPerPage;
   const endIndex = startIndex + postsPerPage;
   const postsToDisplay = allPosts.slice(startIndex, endIndex);
   displayPostsAsCards(postsToDisplay, true); // Append new posts
 
-  // Check if there are more posts to load
+  // Check for more posts to load
   if (endIndex < allPosts.length) {
     currentPage++;
   } else if (button) {
@@ -110,17 +130,14 @@ if (loadMoreButton) {
   loadMoreButton.addEventListener('click', () => loadMorePosts(loadMoreButton));
 }
 
-// Call the fetchPosts function to load initial posts when the page loads
+// Load initial posts when the page loads
 document.addEventListener('DOMContentLoaded', async () => {
   const data = await fetchPosts();
   allPosts = data;
   loadMorePosts(loadMoreButton);
 });
 
-// ... Rest of your code
-
-
-// Event listener for the select dropdown
+// Event listener for the filter dropdown
 if (filterSelect) {
   filterSelect.addEventListener('change', () => {
     const selectedFilter = filterSelect.value;
@@ -128,10 +145,13 @@ if (filterSelect) {
   });
 }
 
-// Function to filter posts based on selected criteria
+// Function to filter posts based on selected filter
 function filterPosts(selectedFilter) {
-  currentPage = 1; // Reset to the first page
-  loadMoreButton.style.display = 'block'; // Show the "Load More" button
+  currentPage = 1; 
+
+  if (loadMoreButton) {
+    loadMoreButton.style.display = 'block'; // Show "Load More" button
+  }
 
   if (selectedFilter === 'all') {
     displayPostsAsCards(allPosts.slice(0, postsPerPage)); // Display the first 8 posts
@@ -146,27 +166,33 @@ function filterPosts(selectedFilter) {
 
     if (filteredPosts.length === 0) {
       postFeed.innerHTML = 'No posts found.';
-      loadMoreButton.style.display = 'none'; // Hide the "Load More" button
+
+      if (loadMoreButton) {
+        loadMoreButton.style.display = 'none'; // Hide "Load More" button
+      }
     } else {
       displayPostsAsCards(filteredPosts.slice(0, postsPerPage)); // Display the first 8 filtered posts
     }
   }
 }
 
-// Function to search posts based on user input
+// Search posts based on search input
 function searchPosts(query, posts) {
-  const filteredPosts = posts.filter((post) => {
-    const postTitle = post.title.toLowerCase();
-    const postTags = post.tags.join(', ').toLowerCase();
-    query = query.toLowerCase();
+    const filteredPosts = posts.filter((post) => {
+      const postTitle = post.title.toLowerCase();
+      const postTags = post.tags.join(', ').toLowerCase();
+      query = query.toLowerCase();
+  
+      return postTitle.includes(query) || postTags.includes(query);
+    });
+  
+    currentPage = 1; // Reset the page to the first page
+  
+    // Instead of hiding the "Load More" button, just load the initial 8 posts.
+    displayPostsAsCards(filteredPosts.slice(0, postsPerPage));
+  }
+  
 
-    return postTitle.includes(query) || postTags.includes(query);
-  });
-
-  currentPage = 1; // Reset to the first page
-  loadMoreButton.style.display = 'block'; // Show the "Load More" button
-  displayPostsAsCards(filteredPosts);
-}
 
 // Event listener for the search button
 if (searchButton) {
@@ -174,7 +200,7 @@ if (searchButton) {
     const query = searchInput.value;
 
     try {
-      displayLoadingState(); // Display loading state
+      displayLoadingState(); // Display loading state...
       const data = await fetchPosts();
       searchPosts(query, data);
     } catch (error) {
@@ -183,7 +209,7 @@ if (searchButton) {
   });
 }
 
-// Function to create a new post
+// Create a new post
 export async function createPost(title, content) {
   try {
     const authToken = localStorage.getItem('accessToken');
@@ -201,7 +227,6 @@ export async function createPost(title, content) {
     if (response.ok) {
       const data = await response.json();
       console.log('Post created successfully', data);
-      // Refresh the post feed or take other actions here
     } else {
       throw new Error('Post creation failed');
     }
@@ -221,5 +246,5 @@ if (createPostForm) {
   });
 }
 
-// Export authToken as a default export
+// Export authToken
 export default localStorage.getItem('accessToken');
