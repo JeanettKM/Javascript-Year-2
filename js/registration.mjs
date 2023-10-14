@@ -1,33 +1,33 @@
-export function registerUser(username, email, password) {
-    const requestBody = {
+export function registerNewUser(username, email, password) {
+    const userInfoRequest = {
         name: username,
         email: email,
         password: password,
     };
 
-    // Error handling and API call
+    // Error handling and targetting the error message element
     const registrationError = document.getElementById('registrationError');
 
-    // Send a POST request to the registration API
+    // Send a HTTP POST request to the registration API
     return fetch('https://api.noroff.dev/api/v1/social/auth/register', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify(requestBody),
+        body: JSON.stringify(userInfoRequest),
     })
     .then((response) => {
         if (response.ok) {
-            // Successful registration
+            // Registration successful
             return response.json();
         } else {
             // error
-            throw new Error('Invalid username, email, or password. Please check your input.');
+            throw new Error('Invalid username, email, or password. Please try again.');
         }
     })
-    .then((data) => {
+    .then((content) => {
         // store the accessToken user in local storage
-        console.log('Registration successful', data);
+        console.log('Registration successful', content);
 
         // Redirect to the feed page
         window.location.href = 'feed.html';
@@ -47,5 +47,5 @@ document.getElementById('registrationForm').addEventListener('submit', function 
     const password = document.getElementById('password').value;
 
     
-    registerUser(username, email, password);
+    registerNewUser(username, email, password);
 });

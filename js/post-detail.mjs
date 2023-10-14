@@ -1,35 +1,41 @@
-// Getting ID from the query parameter
-const urlParams = new URLSearchParams(window.location.search);
-const postId = urlParams.get('id');
-
-const authToken = localStorage.getItem('accessToken');
-const postDetailsContainer = document.getElementById('postDetails');
+const urlSearch = new URLSearchParams(window.location.search);
+const postId = urlSearch.get('id');
+const authenticationToken = localStorage.getItem('accessToken');
+const postContentContainer = document.getElementById('postDetails');
 const editPostForm = document.getElementById('editPostForm');
 const editForm = document.getElementById('editForm');
-const editTitleInput = document.getElementById('editTitle');
-const editBodyInput = document.getElementById('editBody');
+const editTitleText = document.getElementById('editTitle');
+const editBodyText = document.getElementById('editBody');
 const editTagsInput = document.getElementById('editTags');
-const deleteButton = document.getElementById('deleteButton');
+const deleteBtn = document.getElementById('deleteBtn');
 
-// Function to fetch post details and show them
-export function fetchPostDetails() {
+// Function to fetch and display post details
+function fetchPostContent() {
+    // Check if the postId parameter is present in the URL
+    console.log('Fetching post details for postId:', postId);
+    console.log('Using authenticationToken:', authenticationToken);
+
+    // Send an HTTP GET request to the API to fetch the post details
     fetch(`https://api.noroff.dev/api/v1/social/posts/${postId}`, {
         headers: {
-            'Authorization': `Bearer ${authToken}`
+            'Authorization': `Bearer ${authenticationToken}`
         }
     })
+    // Handle response from the server, if ok then return the post details as JSON, otherwise throw an error.
     .then((response) => {
         if (response.ok) {
             return response.json();
         } else {
+            console.error('Failed to fetch post details. Response status:', response.status);
             throw new Error('Failed to fetch post details');
         }
     })
     .then((post) => {
-        // Create a card structure for the post gotten from Bulma css framework
+        console.log('Fetched post:', post);
+        
+        // Create and populate the post card
         const postCard = document.createElement('div');
         postCard.classList.add('card', 'post-card');
-
         postCard.innerHTML = `
             <div class="card-image is-centered">
                 <figure class="has-text-centered">
@@ -41,57 +47,67 @@ export function fetchPostDetails() {
                 <p>${post.body}</p>
                 <p>Tags: ${post.tags.join(', ')}</p>
                 ${post.author ? `<p>Author: ${post.author.name}</p>` : ''}
-                <button id="editButton" class="button is-primary mt-4">Edit Post</button>
+                <button id="editBtn" class="button is-primary mt-4">Edit Post</button>
             </div>
         `;
 
-        //event listener on the "Edit Post" button
-        const editButton = postCard.querySelector('#editButton');
-        editButton.addEventListener('click', () => {
-            displayEditForm(post);
-        });
+        // Add the post card to the container
+        postContentContainer.innerHTML = ''; // Clear previous content
+        postContentContainer.appendChild(postCard);
 
-        postDetailsContainer.appendChild(postCard);
+        // Add an event listener to the "Edit Post" button
+        const editBtn = postCard.querySelector('#editBtn');
+        editBtn.addEventListener('click', () => {
+            showEditForm(post);
+        });
     })
     .catch((error) => {
         console.error('Error fetching post details:', error);
     });
 }
 
-// Display the edit form
-export function displayEditForm(post) {
-    editTitleInput.value = post.title;
-    editBodyInput.value = post.body;
+// Function to display the edit form
+function showEditForm(post) {
+    editTitleText.value = post.title;
+    editBodyText.value = post.body;
     editTagsInput.value = post.tags.join(', ');
 
-    postDetailsContainer.style.display = 'none';
+    postContentContainer.style.display = 'none';
     editPostForm.style.display = 'block';
+
 }
 
-export function handleFormSubmit(event) {
+// Event listener for the edit form submission
+editForm.addEventListener('submit', formSubmission);
+
+// Function to handle form submission
+function formSubmission(event) {
+    console.log("formSubmission called");
     event.preventDefault();
 
     const editedPost = {
-        title: editTitleInput.value,
-        body: editBodyInput.value,
+        title: editTitleText.value,
+        body: editBodyText.value,
         tags: editTagsInput.value.split(',').map(tag => tag.trim()),
     };
 
-    //PUT request to update the post
+    // HTTP PUT request to update the post
+    console.log('Updating post with id:', postId);
     fetch(`https://api.noroff.dev/api/v1/social/posts/${postId}`, {
         method: 'PUT',
         headers: {
-            'Authorization': `Bearer ${authToken}`,
+            'Authorization': `Bearer ${authenticationToken}`,
             'Content-Type': 'application/json',
         },
         body: JSON.stringify(editedPost),
     })
     .then((response) => {
         if (response.ok) {
+            console.log('Post updated successfully. postId before redirection:', postId);
             window.location.href = `post-detail.html?id=${postId}`;
         } else {
-            response.json().then(data => {
-                console.error('Error updating post:', data);
+            response.json().then(content => {
+                console.error('Error updating post:', content);
             });
         }
     })
@@ -100,20 +116,21 @@ export function handleFormSubmit(event) {
     });
 }
 
-// Delete the post
-export function deletePost(postId) {
-    // Send a DELETE request to delete the post
+// HTTP DELETE request to delete the post
+function deletePost(postId) {
+    console.log('Deleting post with id:', postId);
     fetch(`https://api.noroff.dev/api/v1/social/posts/${postId}`, {
         method: 'DELETE',
         headers: {
-            'Authorization': `Bearer ${authToken}`,
+            'Authorization': `Bearer ${authenticationToken}`,
         },
     })
     .then((response) => {
         if (response.ok) {
-            // Post deleted successfully, go back to feed
+            console.log('Post deleted successfully. Redirecting to feed.html');
             window.location.href = 'feed.html';
         } else {
+            console.error('Failed to delete post. Response status:', response.status);
             throw new Error('Failed to delete post');
         }
     })
@@ -122,13 +139,10 @@ export function deletePost(postId) {
     });
 }
 
-// Event listener to the "Delete Post" button
-deleteButton.addEventListener('click', () => {
+// Event listener for the "Delete Post" button
+deleteBtn.addEventListener('click', () => {
     deletePost(postId);
 });
 
-// Fetch and show posts when the page loads
-fetchPostDetails();
-
-
-editForm.addEventListener('submit', handleFormSubmit);
+// Fetch and display post details when the page loads
+fetchPostContent();

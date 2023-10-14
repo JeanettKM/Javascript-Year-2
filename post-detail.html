@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,7 +8,6 @@
     <link rel="shortcut icon, avoid favicon error" href="#" />
     <link rel="stylesheet" href="/css/styles.css">
 </head>
-
 <body>
     <header>
         <nav class="breadcrumb is-centered" aria-label="breadcrumbs">
@@ -37,47 +35,43 @@
 
         <section class="container" id="editPostForm" style="display: none;">
             <h2 class="title is-4">Edit Post</h2>
-            <form id="editForm">
+            <form id="editForm" method="POST">
                 <div class="field">
                     <label for="editTitle" class="label">Title:</label>
                     <div class="control">
                         <input type="text" id="editTitle" name="editTitle" class="input" required>
                     </div>
                 </div>
-
+            
                 <div class="field">
                     <label for="editBody" class="label">Body:</label>
                     <div class="control">
                         <textarea id="editBody" name="editBody" class="textarea" required></textarea>
                     </div>
                 </div>
-
+            
                 <div class="field">
                     <label for="editTags" class="label">Tags (comma-separated):</label>
                     <div class="control">
                         <input type="text" id="editTags" name="editTags" class="input">
                     </div>
                 </div>
-                
-
+            
                 <div class="field">
                     <div class="control has-text-centered">
                         <button type="submit" class="button is-primary">Save Changes</button>
                     </div>
-                    
                 </div>
             </form>
         </section>
         <!-- Add a "Delete Post" button -->
         <div class="container mt-4">
             <div class="has-text-centered">
-                <button id="deleteButton" class="button is-danger">Delete Post</button>
+                <button id="deleteBtn" class="button is-danger">Delete Post</button>
             </div>
         </div>
-        
     </main>
     <footer></footer>
     <script type="module" src="/js/post-detail.mjs"></script>
 </body>
-
 </html>

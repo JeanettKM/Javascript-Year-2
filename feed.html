@@ -26,10 +26,10 @@
         <div class="columns is-vcentered" style="justify-content: space-around;">
             <div class="column is-one-quarter">
                 <div class="field">
-                    <label for="filterSelect" class="label">Filter by:</label>
+                    <label for="chosenFilter" class="label">Filter by:</label>
                     <div class="control">
                         <div class="select">
-                            <select id="filterSelect" class="select">
+                            <select id="chosenFilter" class="select">
                                 <option value="all">All Posts</option>
                                 <option value="reactions">By Reactions</option>
                                 <option value="comments">By Comments</option>
@@ -41,10 +41,10 @@
             <div class="column is-one-quarter">
                 <div class="field has-addons">
                     <div class="control">
-                        <input type="text" id="searchInput" class="input" placeholder="Search">
+                        <input type="text" id="searchText" class="input" placeholder="Search">
                     </div>
                     <div class="control">
-                        <button id="searchButton" class="button is-primary">Search</button>
+                        <button id="searchBtn" class="button is-primary">Search</button>
                     </div>
                 </div>
             </div>
@@ -53,18 +53,18 @@
         
         <div class="columns is-centered">
             <div class="column is-max-widescreen is-half"> <!-- Add is-centered class here -->
-                <div id="postFeed" class="container is-justify-content-center is-half">
+                <div id="feedContent" class="container is-justify-content-center is-half">
                     <!-- Post cards will be inserted here -->
                 </div>
                 <div class="container is-flex is-justify-content-center my-4">
-                    <button id="loadMoreButton" class="button is-primary is-medium">Load More</button>
+                    <button id="loadMoreBtn" class="button is-primary is-medium">Load More</button>
                 </div>
             </div>
         </div>
         <section class="create-post-form">
             <div class="columns is-centered">
                 <div class="column is-one-third">
-                    <form id="createPostForm">
+                    <form id="newPostForm">
                         <div class="field">
                             <label for="postTitle" class="label">Title:</label>
                             <div class="control">

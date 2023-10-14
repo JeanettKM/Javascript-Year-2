@@ -16,3 +16,7 @@
   img {
     border-radius: 5px;
   }
+
+.feed-img {
+  max-width: 50%;
+}

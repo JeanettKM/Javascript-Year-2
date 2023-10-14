@@ -1,32 +1,37 @@
+// Variables
 let allPosts = [];
-let currentPage = 1;
-const postsPerPage = 8;
+let thisPage = 1;
+const amountOfPosts = 8;
 
-const postFeed = document.getElementById('postFeed');
-const loadMoreButton = document.getElementById('loadMoreButton');
-const filterSelect = document.getElementById('filterSelect');
-const searchButton = document.getElementById('searchButton');
-const searchInput = document.getElementById('searchInput');
-const createPostForm = document.getElementById('createPostForm');
+// DOM elements to be used through their ID
+const feedContent = document.getElementById('feedContent');
+const loadMoreBtn = document.getElementById('loadMoreBtn');
+const chosenFilter = document.getElementById('chosenFilter');
+const searchBtn = document.getElementById('searchBtn');
+const searchText = document.getElementById('searchText');
+const newPostForm = document.getElementById('newPostForm');
 
-// Loading state...
-function displayLoadingState() {
-  postFeed.innerHTML = 'Loading...';
+// Loading state... to indicate that the posts are being gathered by the API
+function displayLoading() {
+  feedContent.innerHTML = 'Loading...';
 }
 
 // Fetch posts from the API
 async function fetchPosts() {
   try {
-    const authToken = localStorage.getItem('accessToken');
+    // Get access token from local storage
+    const authenticationToken = localStorage.getItem('accessToken');
+    // Send a request to the API to get posts with authentication token from the request headers
     const response = await fetch('https://api.noroff.dev/api/v1/social/posts', {
       headers: {
-        'Authorization': `Bearer ${authToken}`
+        'Authorization': `Bearer ${authenticationToken}`
       }
     });
 
     if (response.ok) {
-      const data = await response.json();
-      return data;
+       // If the request is successful, load the posts and content into the DOM
+      const content = await response.json();
+      return content;
     } else {
       throw new Error('Failed to fetch posts');
     }
@@ -35,14 +40,14 @@ async function fetchPosts() {
   }
 }
 
-// Show posts as cards, styling by Bulma css framework
-function displayPostsAsCards(posts, append = false) {
+// Show posts as cards, styling by Bulma CSS framework
+function addBulmaCardStyling(posts, append = false) {
   if (!append) {
-    postFeed.innerHTML = '';
+    feedContent.innerHTML = '';
   }
 
   if (posts.length === 0) {
-    postFeed.innerHTML = 'No posts found.';
+    feedContent.innerHTML = 'No posts found.';
   } else {
     posts.forEach((post) => {
       const card = document.createElement('div');
@@ -69,12 +74,12 @@ function displayPostsAsCards(posts, append = false) {
           ` : ''}
           ${post.media ? `
             <div class="media">
-              <div class="media-content">
+              <div class="media-content feed-img">
                 <img src="${post.media}" alt="Media">
               </div>
             </div>
           ` : ''}
-          <div class="mt-4"> <!-- Add margin top for spacing -->
+          <div class="mt-4">
             <a href="post-detail.html?id=${post.id}" class="button">View Details</a>
           </div>
         </div>
@@ -82,103 +87,83 @@ function displayPostsAsCards(posts, append = false) {
     `;
 
       if (append) {
-        postFeed.appendChild(card);
+        feedContent.appendChild(card);
       } else {
-        postFeed.insertBefore(card, postFeed.firstChild);
+        feedContent.insertBefore(card, feedContent.firstChild);
       }
     });
   }
 }
 
-// Fetch posts by a specific user
-export async function fetchPostsByUser(authToken) {
-    try {
-      const response = await fetch('https://api.noroff.dev/api/v1/social/posts', {
-        headers: {
-          'Authorization': `Bearer ${authToken}`
-        }
-      });
-  
-      if (response.ok) {
-        const data = await response.json();
-        return data;
-      } else {
-        throw new Error('Failed to fetch user posts');
-      }
-    } catch (error) {
-      throw error;
-    }
-  }
-
 // Load and show the next 8 posts
-function loadMorePosts(button = null) {
-  const startIndex = (currentPage - 1) * postsPerPage;
-  const endIndex = startIndex + postsPerPage;
-  const postsToDisplay = allPosts.slice(startIndex, endIndex);
-  displayPostsAsCards(postsToDisplay, true); // Append new posts
+function showMorePosts(button = null) {
+  const postStart = (thisPage - 1) * amountOfPosts;
+  const postEnd = postStart + amountOfPosts;
+  const postsToShow = allPosts.slice(postStart, postEnd);
+  addBulmaCardStyling(postsToShow, true); // Add new posts
 
   // Check for more posts to load
-  if (endIndex < allPosts.length) {
-    currentPage++;
+  if (postEnd < allPosts.length) {
+    thisPage++;
   } else if (button) {
     button.style.display = 'none'; // Hide the "Load More" button when there are no more posts to load.
   }
 }
 
 // Event listener for the "Load More" button
-if (loadMoreButton) {
-  loadMoreButton.addEventListener('click', () => loadMorePosts(loadMoreButton));
+if (loadMoreBtn) {
+  loadMoreBtn.addEventListener('click', () => showMorePosts(loadMoreBtn));
 }
 
-// Load initial posts when the page loads
+// Load the first posts when the page is loaded.
 document.addEventListener('DOMContentLoaded', async () => {
-  const data = await fetchPosts();
-  allPosts = data;
-  loadMorePosts(loadMoreButton);
+  const content = await fetchPosts();
+  allPosts = content;
+  showMorePosts(loadMoreBtn);
 });
 
 // Event listener for the filter dropdown
-if (filterSelect) {
-  filterSelect.addEventListener('change', () => {
-    const selectedFilter = filterSelect.value;
+if (chosenFilter) {
+  chosenFilter.addEventListener('change', () => {
+    const selectedFilter = chosenFilter.value;
     filterPosts(selectedFilter);
   });
 }
 
-// Function to filter posts based on selected filter
-function filterPosts(selectedFilter) {
-  currentPage = 1; 
+// Function to filter posts based on the chosen filter
+function filterPosts(chosenFilter) {
+  thisPage = 1; 
 
-  if (loadMoreButton) {
-    loadMoreButton.style.display = 'block'; // Show "Load More" button
+  if (loadMoreBtn) {
+    loadMoreBtn.style.display = 'block'; // Show "Load More" button
   }
 
-  if (selectedFilter === 'all') {
-    displayPostsAsCards(allPosts.slice(0, postsPerPage)); // Display the first 8 posts
+  if (chosenFilter === 'all') {
+    addBulmaCardStyling(allPosts.slice(0, amountOfPosts)); // Display the first 8 posts
   } else {
-    const filteredPosts = allPosts.filter((post) => {
-      if (selectedFilter === 'comments') {
+    const filterResults = allPosts.filter((post) => {
+      if (chosenFilter === 'comments') {
         return post._count.comments > 0;
-      } else if (selectedFilter === 'reactions') {
+      } else if (chosenFilter === 'reactions') {
         return post._count.reactions > 0;
       }
     });
 
-    if (filteredPosts.length === 0) {
-      postFeed.innerHTML = 'No posts found.';
+    if (filterResults.length === 0) {
+      feedContent.innerHTML = 'No posts found.';
 
-      if (loadMoreButton) {
-        loadMoreButton.style.display = 'none'; // Hide "Load More" button
+      if (loadMoreBtn) {
+        loadMoreBtn.style.display = 'none'; // Hide "Load More" button
       }
     } else {
-      displayPostsAsCards(filteredPosts.slice(0, postsPerPage)); // Display the first 8 filtered posts
+      addBulmaCardStyling(filterResults.slice(0, amountOfPosts)); // Display the first 8 filtered posts
     }
   }
 }
 
 // Search posts based on search input
 function searchPosts(query, posts) {
-    const filteredPosts = posts.filter((post) => {
+    const filterResults = posts.filter((post) => {
       const postTitle = post.title.toLowerCase();
       const postTags = post.tags.join(', ').toLowerCase();
       query = query.toLowerCase();
@@ -186,23 +171,23 @@ function searchPosts(query, posts) {
       return postTitle.includes(query) || postTags.includes(query);
     });
   
-    currentPage = 1; // Reset the page to the first page
+    thisPage = 1; // Reset the page to the first page
   
-    // Instead of hiding the "Load More" button, just load the initial 8 posts.
-    displayPostsAsCards(filteredPosts.slice(0, postsPerPage));
+    // Instead of hiding the "Load More" button, just load the first 8 posts.
+    addBulmaCardStyling(filterResults.slice(0, amountOfPosts));
   }
   
 
 
 // Event listener for the search button
-if (searchButton) {
-  searchButton.addEventListener('click', async () => {
-    const query = searchInput.value;
+if (searchBtn) {
+  searchBtn.addEventListener('click', async () => {
+    const query = searchText.value;
 
     try {
-      displayLoadingState(); // Display loading state...
-      const data = await fetchPosts();
-      searchPosts(query, data);
+      displayLoading(); // Display loading state...
+      const content = await fetchPosts();
+      searchPosts(query, content);
     } catch (error) {
       console.error('Error fetching or filtering posts:', error);
     }
@@ -210,25 +195,25 @@ if (searchButton) {
 }
 
 // Create a new post
-export async function createPost(title, content) {
+export async function newPost(title, content) {
   try {
-    const authToken = localStorage.getItem('accessToken');
-    const requestBody = { title, body: content };
+    const authenticationToken = localStorage.getItem('accessToken');
+    const userInfoRequest = { title, body: content };
 
     const response = await fetch('https://api.noroff.dev/api/v1/social/posts', {
       method: 'POST',
       headers: {
-        'Authorization': `Bearer ${authToken}`,
+        'Authorization': `Bearer ${authenticationToken}`,
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(requestBody),
+      body: JSON.stringify(userInfoRequest),
     });
 
     if (response.ok) {
-      const data = await response.json();
-      console.log('Post created successfully', data);
+      const content = await response.json();
+      console.log('Post created!', content);
     } else {
-      throw new Error('Post creation failed');
+      throw new Error('Could not create post.');
     }
   } catch (error) {
     console.error('Post creation error', error);
@@ -236,15 +221,15 @@ export async function createPost(title, content) {
 }
 
 // Event listener for the create post form
-if (createPostForm) {
-  createPostForm.addEventListener('submit', async (e) => {
+if (newPostForm) {
+  newPostForm.addEventListener('submit', async (e) => {
     e.preventDefault();
     const postTitle = document.getElementById('postTitle').value;
     const postContent = document.getElementById('postContent').value;
 
-    await createPost(postTitle, postContent);
+    await newPost(postTitle, postContent);
   });
 }
 
-// Export authToken
+// Export authenticationToken
 export default localStorage.getItem('accessToken');
