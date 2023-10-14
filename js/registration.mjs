@@ -49,3 +49,4 @@ document.getElementById('registrationForm').addEventListener('submit', function 
     
     registerNewUser(username, email, password);
 });
+

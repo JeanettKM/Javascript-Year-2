@@ -146,3 +146,4 @@ deleteBtn.addEventListener('click', () => {
 
 // Fetch and display post details when the page loads
 fetchPostContent();
+
