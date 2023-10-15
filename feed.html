@@ -10,80 +10,107 @@
     <link rel="stylesheet" href="/css/styles.css">
     <link rel="icon" href="data:," rel="Stopping GET favicon error" />
 </head>
-<body>
+<body class="has-background-success-light">
     <header>
+        <section class="hero is-primary">
+            <div class="hero-body">
+                <div class="container">
+                    <h1 class="title has-text-centered">Read up on your friends</h1>
+                </div>
+            </div>
+        </section>
         <nav class="breadcrumb is-centered" aria-label="breadcrumbs">
             <ul>
-              <li><a href="index.html">Log in</a></li>
+              <li><a href="profile.html">Your Profile</a></li>
               <li class="is-active"><a href="feed.html" aria-current="page">Feed</a></li>
             </ul>
           </nav>
     </header>
-    <main>
-        <h1 class="title has-text-centered mt-5">All Recent Posts</h1>
-        <div class="columns is-vcentered" style="justify-content: space-around;">
-            <div class="column is-one-quarter">
-                <div class="field">
-                    <label for="chosenFilter" class="label">Filter by:</label>
-                    <div class="control">
-                        <div class="select">
-                            <select id="chosenFilter" class="select">
-                                <option value="all">All Posts</option>
-                                <option value="reactions">By Reactions</option>
-                                <option value="comments">By Comments</option>
-                            </select>
+    <main class="footerfix">
+        <div class="hero-body">
+            <div class="container is-max-widescreen">
+                <div class="columns is-vcentered is-centered">
+                    <div class="column is-one-third">
+                        <div class="field">
+                            <label for="chosenFilter" class="label feedFormtext">Filter by:</label>
+                            <div class="control">
+                                <div class="select">
+                                    <select id="chosenFilter" class="select">
+                                        <option value="all">All Posts</option>
+                                        <option value="reactions">By Reactions</option>
+                                        <option value="comments">By Comments</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column is-one-third">
+                        <div class="field has-addons">
+                            <div class="control">
+                                <input type="text" id="searchText" class="input" placeholder="Search">
+                            </div>
+                            <div class="control">
+                                <button id="searchBtn" class="button is-primary">Search</button>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="column is-one-quarter">
-                <div class="field has-addons">
-                    <div class="control">
-                        <input type="text" id="searchText" class="input" placeholder="Search">
-                    </div>
-                    <div class="control">
-                        <button id="searchBtn" class="button is-primary">Search</button>
-                    </div>
-                </div>
-            </div>
         </div>
+                
         <div class="columns is-centered">
             <div class="column is-max-widescreen is-half">
                 <div id="feedContent" class="container is-justify-content-center is-half">
                 </div>
                 <div class="container is-flex is-justify-content-center my-4">
-                    <button id="loadMoreBtn" class="button is-primary is-medium">Load More</button>
+                    <button id="loadMoreBtn" class="button is-primary is-medium">I want to see more</button>
                 </div>
             </div>
         </div>
-        <section class="create-post-form">
-            <div class="columns is-centered">
-                <div class="column is-one-third">
-                    <form id="newPostForm">
-                        <div class="field">
-                            <label for="postTitle" class="label">Title:</label>
-                            <div class="control">
-                                <input type="text" id="postTitle" class="input" placeholder="Post Title" required>
-                            </div>
-                        </div>
-                        <div class="field">
-                            <label for="postContent" class="label">Content:</label>
-                            <div class="control">
-                                <textarea id="postContent" class="textarea" placeholder="Post Content" required></textarea>
-                            </div>
-                        </div>
-                        <div class="field is-grouped is-grouped-centered">
-                            <div class="control">
-                              <button type="submit" class="button is-primary">Create Post</button>
-                            </div>
-                          </div>
-                    </form>
+        <section></sectison>
+        <section class="hero is-primary">
+            <div class="hero-body">
+                <div class="container">
+                    <h1 class="title has-text-centered">Publish your own post!</h1>
+                    <p class="has-text-centered">Tell your friends what's up</p>
                 </div>
             </div>
         </section>
+        <section class="has-primary m-5">
+            <div class="columns is-centered">
+                <div class="column is-full-mobile is-two-thirds-tablet is-one-third-desktop is-half-widescreen">
+                    <div class="container">
+                        <div class="form-container ml-2 mr-2">
+                            <form id="newPostForm">
+                                <div class="field">
+                                    <label for="postTitle" class="label mt-3 feedFormtext">Title:</label>
+                                    <div class="control">
+                                        <input type="text" id="postTitle" class="input" placeholder="Post Title" required>
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <label for="postContent" class="label mt-5 feedFormtext">What is your message?</label>
+                                    <div class="control">
+                                        <textarea id="postContent" class="textarea" placeholder="Post Content" required></textarea>
+                                    </div>
+                                </div>
+                                <div class="field is-grouped is-grouped-centered">
+                                    <div class="control">
+                                        <button type="submit" class="button is-primary m-4">Publish!</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>  
     </main>
-    <footer></footer>
+    <footer class="footer is-fixed-bottom has-background-primary has-text-white">
+        <div class="content has-text-centered">
+            <p>&copy; 2023 Jeanett Melsom.</p>
+        </div>
+    </footer>   
     <script type="module" src="/js/feed.mjs"></script>
 </body>
-
 </html>

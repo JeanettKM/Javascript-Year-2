@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="View your profile and posts"/>
+    <title>Profile</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.min.css">
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="icon" href="data:," rel="Stopping GET favicon error" />
+</head>
+<body class="has-background-success-light">
+    <header>
+        <section class="hero is-primary">
+            <div class="hero-body">
+                <div class="container">
+                    <h1 class="title has-text-centered">Your Profile</h1>
+                </div>
+            </div>
+        </section>
+        <nav class="breadcrumb is-centered" aria-label="breadcrumbs">
+            <ul>
+              <li><a href="index.html">Log out</a></li>
+              <li class="is-active"><a href="profile.html" aria-current="page">Profile</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main class="footerfix">
+        <div class="columns is-centered">
+            <div class="column is-max-widescreen is-half">
+                <h1 class="has-text-centered"><a href="feed.html">Go to Feed</a></h1>
+            </div>
+        </div>
+        <div class="columns is-centered">
+            <div class="column is-max-widescreen is-half">
+                <div id="profileContent" class="container has-text-centered is-half">
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer class="footer is-fixed-bottom has-background-primary has-text-white">
+        <div class="content has-text-centered">
+            <p>&copy; 2023 Jeanett Melsom.</p>
+        </div>
+    </footer> 
+    <script type="module" src="/js/profile.mjs"></script>
+</body>
+</html>
