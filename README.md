@@ -41,3 +41,8 @@ To get started with this social media application, you need to register as a use
 ## License
 
 There is no liscense needed for this project. 
+
+
+my trello board:
+
+![Trello Workboard JM](https://github.com/JeanettKM/Javascript-Year-2/assets/114770676/b99d1150-3c8d-42c6-8ac1-dd4f7a5264c9)
